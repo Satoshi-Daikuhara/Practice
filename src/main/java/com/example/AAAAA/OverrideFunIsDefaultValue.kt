@@ -10,7 +10,7 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.BEGIN,
             workFlow = "CHECK")
 
@@ -19,7 +19,7 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.INPUT,
             workFlow = workFlow,
             args = *arrayOf(Param("one", "1"),
@@ -31,7 +31,7 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.REQUEST,
             workFlow = workFlow,
             place = place,
@@ -45,7 +45,7 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.RESPONSE_CODE,
             msg = "201")
 
@@ -54,7 +54,7 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.INFO,
             workFlow = workFlow,
             place = place,
@@ -65,20 +65,20 @@ fun main() {
     println("******")
 
 
-    strImpl.root(Level.INFO,
+    strImpl.log(Level.INFO,
             Type.ERROR,
             workFlow = workFlow,
             msg = "OK")
 
 }
 
-interface StringInterface {
-    fun root(level: Level, type: Type, workFlow: String = "", place: String = "", msg: String = "", target: String = "", vararg args: Param = arrayOf())
+interface LoggerInterface {
+    fun log(level: Level, type: Type, workFlow: String = "", place: String = "", msg: String = "", target: String = "", vararg args: Param = arrayOf())
 }
 
-class StringImplements(private val outputLevel: Level) : StringInterface {
+class LoggerImplements(private val outputLevel: Level) : LoggerInterface {
 
-    override fun root(level: Level, type: Type, workFlow: String, place: String, msg: String, target: String, vararg args: Param) {
+    override fun log(level: Level, type: Type, workFlow: String, place: String, msg: String, target: String, vararg args: Param) {
         if (level < outputLevel) return
 
         var output = "[$type]"
@@ -104,13 +104,13 @@ class StringImplements(private val outputLevel: Level) : StringInterface {
     }
 }
 
-interface StrFactory {
-    fun simpleFactory(outputLevel: Level): StringInterface
+interface LoggerFactory {
+    fun simpleFactory(outputLevel: Level): LoggerInterface
 }
 
-class SimpleFactory : StrFactory {
-    override fun simpleFactory(outputLevel: Level): StringInterface {
-        return StringImplements(outputLevel)
+class SimpleFactory : LoggerFactory {
+    override fun simpleFactory(outputLevel: Level): LoggerInterface {
+        return LoggerImplements(outputLevel)
     }
 }
 
