@@ -8,6 +8,8 @@ fun main() {
 
     println("BEGIN & END")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.BEGIN,
             workFlow = "CHECK")
@@ -15,6 +17,8 @@ fun main() {
     println("\n******")
     println("INPUT & OUTPUT")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.INPUT,
             workFlow = workFlow,
@@ -25,6 +29,8 @@ fun main() {
     println("\n******")
     println("REQUEST & RESPONSE")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.REQUEST,
             workFlow = workFlow,
@@ -37,6 +43,8 @@ fun main() {
     println("\n******")
     println("RESPONSE_CODE")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.RESPONSE_CODE,
             msg = "201")
@@ -44,6 +52,8 @@ fun main() {
     println("\n******")
     println("Log")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.INFO,
             workFlow = workFlow,
@@ -53,6 +63,8 @@ fun main() {
     println("\n******")
     println("LogError")
     println("******")
+
+
     strImpl.root(Level.INFO,
             Type.ERROR,
             workFlow = workFlow,
@@ -83,7 +95,7 @@ class StringImplements(private val outputLevel: Level) : StringInterface {
 
         if (target.isNotEmpty()) output = output.plus("\n [Target] : $target")
 
-        if (args.isNotEmpty()){
+        if (args.isNotEmpty()) {
             for (arg in args) {
                 output = output.plus("\n $arg")
             }
@@ -110,7 +122,7 @@ data class Param(private val name: String,
     }
 }
 
-enum class Type{
+enum class Type {
     BEGIN,
     END,
     INPUT,
