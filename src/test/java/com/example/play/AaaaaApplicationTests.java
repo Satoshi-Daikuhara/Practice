@@ -1,4 +1,4 @@
-package com.example.AAAAA;
+package com.example.play;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

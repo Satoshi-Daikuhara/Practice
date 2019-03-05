@@ -1,4 +1,4 @@
-package com.example.AAAAA
+package com.example.play
 
 fun main (args: Array<String>){
     println(Level.INFO.compareTo(Level.WARNING)) //-1

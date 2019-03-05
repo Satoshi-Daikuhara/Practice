@@ -1,4 +1,4 @@
-package com.example.AAAAA
+package com.example.play
 
 fun main(args: Array<String>) {
     val readyList = readLine()?.split(" ") ?: return

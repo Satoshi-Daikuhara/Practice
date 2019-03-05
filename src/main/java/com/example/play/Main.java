@@ -1,4 +1,4 @@
-package com.example.AAAAA;
+package com.example.play;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class Main {
         String line = sc.nextLine();
         int cardSu = Integer.parseInt(line);
 
-        ArrayList<String> cards = new ArrayList();
+        ArrayList cards = new ArrayList();
         for (int i = 0; i < cardSu; i++) {
             cards.add(sc.nextLine());
         }

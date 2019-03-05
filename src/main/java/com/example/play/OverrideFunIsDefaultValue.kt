@@ -1,7 +1,8 @@
-package com.example.AAAAA
+package com.example.play
 
 fun main() {
-    val strImpl = SimpleFactory().simpleFactory(Level.INFO)
+    val applicationName = "Test"
+    val logImpl = SimpleFactory().simpleFactory(Level.INFO){str: String -> println(applicationName + str) }
     val workFlow = "CHECK"
     val place = "Controller"
     val target = "Server"
@@ -10,7 +11,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.BEGIN,
             workFlow = "CHECK")
 
@@ -19,7 +20,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.INPUT,
             workFlow = workFlow,
             args = *arrayOf(Param("one", "1"),
@@ -31,7 +32,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.REQUEST,
             workFlow = workFlow,
             place = place,
@@ -45,7 +46,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.RESPONSE_CODE,
             msg = "201")
 
@@ -54,7 +55,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.INFO,
             workFlow = workFlow,
             place = place,
@@ -65,7 +66,7 @@ fun main() {
     println("******")
 
 
-    strImpl.log(Level.INFO,
+    logImpl.log(Level.INFO,
             Type.ERROR,
             workFlow = workFlow,
             msg = "OK")
@@ -76,41 +77,42 @@ interface LoggerInterface {
     fun log(level: Level, type: Type, workFlow: String = "", place: String = "", msg: String = "", target: String = "", vararg args: Param = arrayOf())
 }
 
-class LoggerImplements(private val outputLevel: Level) : LoggerInterface {
+class LoggerImplements(private val outputLevel: Level,
+                       private val output: (String) -> Unit) : LoggerInterface {
 
     override fun log(level: Level, type: Type, workFlow: String, place: String, msg: String, target: String, vararg args: Param) {
         if (level < outputLevel) return
 
-        var output = "[$type]"
+        var message = "[$type]"
 
-        if (workFlow.isNotEmpty()) output = output.plus("[$workFlow]")
+        if (workFlow.isNotEmpty()) message = message.plus("[$workFlow]")
 
-        if (place.isNotEmpty()) output = output.plus(" : [$place]")
+        if (place.isNotEmpty()) message = message.plus(" : [$place]")
 
         if (place.isEmpty() && msg.isNotEmpty()) {
-            output = output.plus(" : $msg")
+            message = message.plus(" : $msg")
         } else if (msg.isNotEmpty()) {
-            output = output.plus("\n [Message] : $msg")
+            message = message.plus("\n [Message] : $msg")
         }
 
-        if (target.isNotEmpty()) output = output.plus("\n [Target] : $target")
+        if (target.isNotEmpty()) message = message.plus("\n [Target] : $target")
 
         if (args.isNotEmpty()) {
             for (arg in args) {
-                output = output.plus("\n $arg")
+                message = message.plus("\n $arg")
             }
         }
-        println(output)
+        output(message)
     }
 }
 
 interface LoggerFactory {
-    fun simpleFactory(outputLevel: Level): LoggerInterface
+    fun simpleFactory(outputLevel: Level, output: (String) -> Unit): LoggerInterface
 }
 
 class SimpleFactory : LoggerFactory {
-    override fun simpleFactory(outputLevel: Level): LoggerInterface {
-        return LoggerImplements(outputLevel)
+    override fun simpleFactory(outputLevel: Level, output: (String) -> Unit): LoggerInterface {
+        return LoggerImplements(outputLevel, output)
     }
 }
 

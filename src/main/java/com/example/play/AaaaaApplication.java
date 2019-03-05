@@ -1,4 +1,4 @@
-package com.example.AAAAA;
+package com.example.play;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
