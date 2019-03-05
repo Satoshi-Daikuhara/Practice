@@ -11,16 +11,16 @@ public class Main {
         String line = sc.nextLine();
         int cardSu = Integer.parseInt(line);
 
-        ArrayList cards = new ArrayList();
+        ArrayList<String> cards = new ArrayList<>();
         for (int i = 0; i < cardSu; i++) {
             cards.add(sc.nextLine());
         }
 
-        for (int num = 0; num < cards.size(); num++) {
+        for (String card1 : cards) {
             int even = 0;
             int odd = 0;
-            String card = cards.get(num);
-            ArrayList<Integer> cardNumbers = new ArrayList();
+            String card = card1;
+            ArrayList<Integer> cardNumbers = new ArrayList<>();
             for (int i = 0; i < card.length() - 1; i++) {
                 cardNumbers.add(Integer.parseInt(card.substring(i, i + 1)));
             }
